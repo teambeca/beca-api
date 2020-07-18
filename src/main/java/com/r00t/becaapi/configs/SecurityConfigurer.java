@@ -57,17 +57,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
 
-                //.antMatchers("/admin/**").hasRole("ADMIN")
-                //.antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers("/auth/**").permitAll()
-                //.antMatchers("/cart/**").permitAll()
-                //.antMatchers("/checkout/**").permitAll()
-                //.antMatchers("/extras/**").permitAll()
-                //.antMatchers("/kit/**").permitAll()
-                //.antMatchers("/location/**").permitAll()
-                //.antMatchers("/payment/**").permitAll()
-                //.antMatchers("/product/**").permitAll()
 
                 .antMatchers("/actuator/**").permitAll()
 

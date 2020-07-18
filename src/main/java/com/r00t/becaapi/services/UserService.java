@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserLoginCredentialsRepository userLoginCredentialsRepository;
+    @Autowired
+    private ProfileService profileService;
 
     public boolean checkUsernameExist(String username) {
         return userLoginCredentialsRepository.findByUsername(username).isPresent();
@@ -32,13 +34,17 @@ public class UserService {
         u.setActive(true);
         u.setScore(0);
         u.setCreationDate(System.currentTimeMillis());
-        return userLoginCredentialsRepository.insert(u);
+
+        u = userLoginCredentialsRepository.insert(u);
+        profileService.createEmptyCredentialsWithUserId(u.getId());
+        return u;
     }
 
     public UserLoginCredentials updateCredentials(UserLoginCredentials requestCredentials) throws NotFoundException {
         UserLoginCredentials u = getCredentialsById(requestCredentials.getId());
         u.setUsername(requestCredentials.getUsername());
-        u.setPassword(requestCredentials.getPassword());
+        if (requestCredentials.getPassword() != null)
+            u.setPassword(requestCredentials.getPassword());
         u.setUpdatedDate(System.currentTimeMillis());
         return userLoginCredentialsRepository.save(u);
     }
