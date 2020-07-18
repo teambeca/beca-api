@@ -6,6 +6,7 @@ public class UserLoginCredentials {
     private String password;
     private String role;
     private boolean active;
+    private long score;
     private long creationDate;
     private long updatedDate;
 
@@ -47,6 +48,14 @@ public class UserLoginCredentials {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public long getScore() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        this.score = score;
     }
 
     public long getCreationDate() {
