@@ -35,9 +35,9 @@ public class SecurityController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     requestCredentials.getUsername(), requestCredentials.getPassword()));
         } catch (DisabledException e) {
-            throw new PermissionException("AuthenticationController.Disabled.generateToken");
+            throw new PermissionException("authenticationController.signIn.disabledException");
         } catch (BadCredentialsException e) {
-            throw new PermissionException("AuthenticationController.BadCredentials.generateToken");
+            throw new PermissionException("authenticationController.signIn.badCredentialsException");
         }
 
         UserLoginCredentials userLoginCredentials = ((SecurityPrincipal) securityService.loadUserByUsername(
