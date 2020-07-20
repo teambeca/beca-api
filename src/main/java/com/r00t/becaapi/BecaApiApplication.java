@@ -1,5 +1,6 @@
 package com.r00t.becaapi;
 
+import com.r00t.becaapi.repository.UserLoginCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,8 @@ import java.util.Random;
 public class BecaApiApplication implements CommandLineRunner {
     @Autowired
     private Random random;
+    @Autowired
+    private UserLoginCredentialsRepository repository;
 
     @Bean
     public Random getRandom() {

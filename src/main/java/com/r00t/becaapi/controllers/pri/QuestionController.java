@@ -5,6 +5,7 @@ import com.r00t.becaapi.models.QuestionResponseCredentials;
 import com.r00t.becaapi.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,15 +22,17 @@ public class QuestionController {
 
     @GetMapping("/by/type/{questionType}")
     public ResponseEntity<?> getRandomQuestionByType(
-            @PathVariable String questionType) {
+            @PathVariable int questionType) {
         return ResponseEntity.ok().body(
-                questionService.getRandomCredentialsByQuestionTyepe(questionType));
+                questionService.getRandomCredentialsByQuestionType(questionType));
     }
 
     @PostMapping
     public ResponseEntity<?> responseQuestion(
+            Authentication authentication,
             @RequestBody QuestionResponseCredentials requestCredentials) throws NotFoundException {
+        String userId = (String) authentication.getCredentials();
         return ResponseEntity.ok().body(
-                questionService.insertResponseCredentials(requestCredentials));
+                questionService.insertResponseCredentials(userId, requestCredentials));
     }
 }

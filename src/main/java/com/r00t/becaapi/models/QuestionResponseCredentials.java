@@ -5,6 +5,7 @@ import java.util.List;
 public class QuestionResponseCredentials {
     private String id;
     private String questionId;
+    private String userId;
     private String questionType;
     private List<Integer> answer;
     private long creationDate;
@@ -23,6 +24,14 @@ public class QuestionResponseCredentials {
 
     public void setQuestionId(String questionId) {
         this.questionId = questionId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getQuestionType() {

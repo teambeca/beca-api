@@ -2,10 +2,13 @@ package com.r00t.becaapi.services;
 
 import com.r00t.becaapi.exceptions.AlreadyExistException;
 import com.r00t.becaapi.exceptions.NotFoundException;
+import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.UserLoginCredentials;
 import com.r00t.becaapi.repository.UserLoginCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -13,6 +16,11 @@ public class UserService {
     private UserLoginCredentialsRepository userLoginCredentialsRepository;
     @Autowired
     private ProfileService profileService;
+
+    public List<UserLoginCredentials> getTopCredentials() throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findTop5ByOrderByScoreDesc()
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getTopCredentials"));
+    }
 
     public boolean checkUsernameExist(String username) {
         return userLoginCredentialsRepository.findByUsername(username).isPresent();

@@ -1,13 +1,18 @@
 package com.r00t.becaapi.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionCredentials {
     private String id;
-    private String questionType;
+    private int questionType;
     private List<String> text;
     private int numberOfReplies;
     private long creationDate;
+
+    public QuestionCredentials() {
+        this.text = new ArrayList<>();
+    }
 
     public String getId() {
         return id;
@@ -17,11 +22,11 @@ public class QuestionCredentials {
         this.id = id;
     }
 
-    public String getQuestionType() {
+    public int getQuestionType() {
         return questionType;
     }
 
-    public void setQuestionType(String questionType) {
+    public void setQuestionType(int questionType) {
         this.questionType = questionType;
     }
 
