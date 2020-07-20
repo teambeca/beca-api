@@ -40,9 +40,13 @@ public class UserService {
         return u;
     }
 
-    public UserLoginCredentials updateCredentials(UserLoginCredentials requestCredentials) throws NotFoundException {
+    public UserLoginCredentials updateCredentials(UserLoginCredentials requestCredentials) throws NotFoundException, AlreadyExistException {
         UserLoginCredentials u = getCredentialsById(requestCredentials.getId());
-        u.setUsername(requestCredentials.getUsername());
+        if (!u.getUsername().equals(requestCredentials.getUsername()))
+            if (userLoginCredentialsRepository.findByUsername(requestCredentials.getUsername()).isPresent())
+                throw new AlreadyExistException("");
+            else
+                u.setUsername(requestCredentials.getUsername());
         if (requestCredentials.getPassword() != null)
             u.setPassword(requestCredentials.getPassword());
         u.setUpdatedDate(System.currentTimeMillis());

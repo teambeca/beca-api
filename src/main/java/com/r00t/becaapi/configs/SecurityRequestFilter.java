@@ -25,19 +25,19 @@ public class SecurityRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader(jwtConfigurer.getHeader());
 
-        String email = null;
+        String username = null;
         if (requestTokenHeader != null && requestTokenHeader.startsWith(jwtConfigurer.getPrefix())) {
             String token = requestTokenHeader.replace(jwtConfigurer.getPrefix(), "");
 
             try {
-                email = securityService.getEmailFromToken(token);
+                username = securityService.getEmailFromToken(token);
             } catch (Exception ignored) {
             }
         }
 
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
-                SecurityPrincipal principal = (SecurityPrincipal) securityService.loadUserByUsername(email);
+                SecurityPrincipal principal = (SecurityPrincipal) securityService.loadUserByUsername(username);
                 if (principal.isEnabled()) {
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                             principal.getUsername(), principal.getId(), principal.getAuthorities());
