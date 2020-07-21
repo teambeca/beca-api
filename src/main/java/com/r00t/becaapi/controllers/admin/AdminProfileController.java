@@ -16,10 +16,11 @@ public class AdminProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping
-    public ResponseEntity<?> getProfileCredentials() {
+    @GetMapping("/{page}")
+    public ResponseEntity<?> getProfileCredentials(
+            @PathVariable int page) {
         return ResponseEntity.ok().body(
-                profileService.getCredentials());
+                profileService.getCredentials(page));
     }
 
     @GetMapping("/by/id/{profileId}")

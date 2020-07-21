@@ -6,6 +6,7 @@ import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.UserLoginCredentials;
 import com.r00t.becaapi.repository.UserLoginCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,9 @@ public class UserService {
                 .orElseThrow(() -> new ServiceUnavailableException("userService.getTopCredentials"));
     }
 
-    public List<UserLoginCredentials> getCredentials() {
-        return userLoginCredentialsRepository.findAll();
+    public List<UserLoginCredentials> getCredentials(int page) {
+        return userLoginCredentialsRepository.findAll(PageRequest.of(page, 50))
+                .getContent();
     }
 
     public List<UserLoginCredentials> getCredentialsByUsername(String username) throws ServiceUnavailableException {

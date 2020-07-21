@@ -16,10 +16,11 @@ public class AdminQuestionResponseController {
     @Autowired
     private QuestionResponseService questionResponseService;
 
-    @GetMapping
-    public ResponseEntity<?> getQuestionResponseCredentials() {
+    @GetMapping("/{page}")
+    public ResponseEntity<?> getQuestionResponseCredentials(
+            @PathVariable int page) {
         return ResponseEntity.ok().body(
-                questionResponseService.getCredentials());
+                questionResponseService.getCredentials(page));
     }
 
     @GetMapping("/by/id/{responseId}")

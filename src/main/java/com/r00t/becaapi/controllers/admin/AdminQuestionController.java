@@ -16,6 +16,13 @@ public class AdminQuestionController {
     @Autowired
     private QuestionService questionService;
 
+    @GetMapping("/{page}")
+    public ResponseEntity<?> getQuestionCredentials(
+            @PathVariable int page) {
+        return ResponseEntity.ok().body(
+                questionService.getCredentials(page));
+    }
+
     @GetMapping("/by/id/{questionId}")
     public ResponseEntity<?> getQuestionCredentialsById(
             @PathVariable String questionId) throws NotFoundException {

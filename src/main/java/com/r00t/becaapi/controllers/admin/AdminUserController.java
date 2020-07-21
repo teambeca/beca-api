@@ -16,10 +16,11 @@ public class AdminUserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public ResponseEntity<?> getUserLoginCredentials() {
+    @GetMapping("/{page}")
+    public ResponseEntity<?> getUserLoginCredentials(
+            @PathVariable int page) {
         return ResponseEntity.ok().body(
-                userService.getCredentials());
+                userService.getCredentials(page));
     }
 
     @GetMapping("/by/id/{userId}")

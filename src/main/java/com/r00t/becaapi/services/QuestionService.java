@@ -7,10 +7,13 @@ import com.r00t.becaapi.repository.QuestionCredentialsRepository;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class QuestionService {
@@ -20,6 +23,11 @@ public class QuestionService {
     private MongoTemplate mongoTemplate;
     @Autowired
     private QuestionCredentialsRepository questionCredentialsRepository;
+
+    public List<QuestionCredentials> getCredentials(int page) {
+        return questionCredentialsRepository.findAll(PageRequest.of(page, 50))
+                .getContent();
+    }
 
     public long countCredentialsByQuestionType(int questionType) throws ServiceUnavailableException {
         return questionCredentialsRepository.countByQuestionType(questionType)

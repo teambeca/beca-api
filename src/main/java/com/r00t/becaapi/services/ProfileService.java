@@ -6,6 +6,7 @@ import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.ProfileCredentials;
 import com.r00t.becaapi.repository.ProfileCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +16,9 @@ public class ProfileService {
     @Autowired
     private ProfileCredentialsRepository profileCredentialsRepository;
 
-    public List<ProfileCredentials> getCredentials() {
-        return profileCredentialsRepository.findAll();
+    public List<ProfileCredentials> getCredentials(int page) {
+        return profileCredentialsRepository.findAll(PageRequest.of(page, 50))
+                .getContent();
     }
 
     public List<ProfileCredentials> getCredentialsByName(String name) throws ServiceUnavailableException {
