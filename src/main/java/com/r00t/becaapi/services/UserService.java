@@ -6,12 +6,15 @@ import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.UserLoginCredentials;
 import com.r00t.becaapi.repository.UserLoginCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UserService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private UserLoginCredentialsRepository userLoginCredentialsRepository;
     @Autowired
@@ -37,7 +40,7 @@ public class UserService {
 
         UserLoginCredentials u = new UserLoginCredentials();
         u.setUsername(requestCredentials.getUsername());
-        u.setPassword(requestCredentials.getPassword());
+        u.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
         u.setRole("ROLE_USER");
         u.setActive(true);
         u.setScore(0);
