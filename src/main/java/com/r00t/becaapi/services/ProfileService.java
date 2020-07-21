@@ -59,17 +59,17 @@ public class ProfileService {
                 .orElseThrow(() -> new ServiceUnavailableException("profileService.getCredentialsByAgeBetween"));
     }
 
-    public List<ProfileCredentials> getCredentialsByCreationDateGreaterThan(int creationDate) throws ServiceUnavailableException {
+    public List<ProfileCredentials> getCredentialsByCreationDateGreaterThan(long creationDate) throws ServiceUnavailableException {
         return profileCredentialsRepository.findAllByCreationDateGreaterThan(creationDate)
                 .orElseThrow(() -> new ServiceUnavailableException("profileService.getCredentialsByCreationDateGreaterThan"));
     }
 
-    public List<ProfileCredentials> getCredentialsByCreationDateLessThan(int creationDate) throws ServiceUnavailableException {
+    public List<ProfileCredentials> getCredentialsByCreationDateLessThan(long creationDate) throws ServiceUnavailableException {
         return profileCredentialsRepository.findAllByCreationDateLessThan(creationDate)
                 .orElseThrow(() -> new ServiceUnavailableException("profileService.getCredentialsByCreationDateLessThan"));
     }
 
-    public List<ProfileCredentials> getCredentialsByCreationDateBetween(int start, int end) throws ServiceUnavailableException {
+    public List<ProfileCredentials> getCredentialsByCreationDateBetween(long start, long end) throws ServiceUnavailableException {
         return profileCredentialsRepository.findAllByCreationDateBetween(start, end)
                 .orElseThrow(() -> new ServiceUnavailableException("profileService.getCredentialsByCreationDateBetween"));
     }

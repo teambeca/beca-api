@@ -53,6 +53,13 @@ public class QuestionService {
         ));
     }
 
+    public QuestionCredentials insertCredentials(QuestionCredentials requestCredentials) {
+        requestCredentials.setId(null);
+        requestCredentials.setNumberOfReplies(0);
+        requestCredentials.setCreationDate(System.currentTimeMillis());
+        return questionCredentialsRepository.insert(requestCredentials);
+    }
+
     public QuestionCredentials updateCredentials(QuestionCredentials requestCredentials) {
         return questionCredentialsRepository.save(requestCredentials);
     }

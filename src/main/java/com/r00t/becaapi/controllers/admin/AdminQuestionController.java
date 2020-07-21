@@ -1,6 +1,7 @@
 package com.r00t.becaapi.controllers.admin;
 
 import com.r00t.becaapi.exceptions.NotFoundException;
+import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.QuestionCredentials;
 import com.r00t.becaapi.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +25,23 @@ public class AdminQuestionController {
 
     @GetMapping("/count/by/question-type/{questionType}")
     public ResponseEntity<?> getQuestionCredentialsByQuestionType(
-            @PathVariable int questionType) {
+            @PathVariable int questionType) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
                 questionService.countCredentialsByQuestionType(questionType));
     }
 
     @GetMapping("/count/by/number-of-replies/{numberOfReplies}")
     public ResponseEntity<?> getQuestionCredentialsByNumberOfReplies(
-            @PathVariable int numberOfReplies) {
+            @PathVariable int numberOfReplies) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
                 questionService.countCredentialsByNumberOfReplies(numberOfReplies));
+    }
+
+    @PostMapping
+    public ResponseEntity<?> insertQuestionCredentials(
+            @RequestBody QuestionCredentials requestCredentials) {
+        return ResponseEntity.ok().body(
+                questionService.insertCredentials(requestCredentials));
     }
 
     @PatchMapping

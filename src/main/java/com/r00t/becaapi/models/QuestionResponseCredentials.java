@@ -6,8 +6,8 @@ public class QuestionResponseCredentials {
     private String id;
     private String questionId;
     private String userId;
-    private String questionType;
     private List<Integer> answer;
+    private int questionType;
     private long creationDate;
 
     public String getId() {
@@ -34,20 +34,20 @@ public class QuestionResponseCredentials {
         this.userId = userId;
     }
 
-    public String getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(String questionType) {
-        this.questionType = questionType;
-    }
-
     public List<Integer> getAnswer() {
         return answer;
     }
 
     public void setAnswer(List<Integer> answer) {
         this.answer = answer;
+    }
+
+    public int getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(int questionType) {
+        this.questionType = questionType;
     }
 
     public long getCreationDate() {

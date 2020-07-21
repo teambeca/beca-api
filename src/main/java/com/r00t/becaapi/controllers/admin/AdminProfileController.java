@@ -102,22 +102,22 @@ public class AdminProfileController {
 
     @GetMapping("/by/creation-date/greater-than/{creationDate}")
     public ResponseEntity<?> getProfileCredentialsByCreationDateGreaterThan(
-            @PathVariable int creationDate) throws ServiceUnavailableException {
+            @PathVariable long creationDate) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
                 profileService.getCredentialsByCreationDateGreaterThan(creationDate));
     }
 
     @GetMapping("/by/creation-date/less-than/{creationDate}")
     public ResponseEntity<?> getProfileCredentialsByCreationDateLessThan(
-            @PathVariable int creationDate) throws ServiceUnavailableException {
+            @PathVariable long creationDate) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
                 profileService.getCredentialsByCreationDateLessThan(creationDate));
     }
 
     @GetMapping("/by/creation-date/greater-than/{start}/and/less-than/{end}")
     public ResponseEntity<?> getProfileCredentialsByCreationDateBetween(
-            @PathVariable int start,
-            @PathVariable int end) throws ServiceUnavailableException {
+            @PathVariable long start,
+            @PathVariable long end) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
                 profileService.getCredentialsByCreationDateBetween(start, end));
     }
