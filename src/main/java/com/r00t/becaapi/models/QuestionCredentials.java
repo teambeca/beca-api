@@ -5,8 +5,8 @@ import java.util.List;
 
 public class QuestionCredentials {
     private String id;
-    private int questionType;
     private List<String> text;
+    private int questionType;
     private int numberOfReplies;
     private long creationDate;
 
@@ -22,20 +22,20 @@ public class QuestionCredentials {
         this.id = id;
     }
 
-    public int getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(int questionType) {
-        this.questionType = questionType;
-    }
-
     public List<String> getText() {
         return text;
     }
 
     public void setText(List<String> text) {
         this.text = text;
+    }
+
+    public int getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(int questionType) {
+        this.questionType = questionType;
     }
 
     public int getNumberOfReplies() {

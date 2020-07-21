@@ -21,4 +21,17 @@ public class LocationService {
         return locationCredentialsRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("locationService.getCredentialsById"));
     }
+
+    public LocationCredentials insertCredentials(LocationCredentials requestCredentials) {
+        requestCredentials.setId(null);
+        return locationCredentialsRepository.insert(requestCredentials);
+    }
+
+    public LocationCredentials updateCredentials(LocationCredentials requestCredentials) {
+        return locationCredentialsRepository.save(requestCredentials);
+    }
+
+    public void deleteCredentials(String id) {
+        locationCredentialsRepository.deleteById(id);
+    }
 }

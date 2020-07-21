@@ -2,6 +2,7 @@ package com.r00t.becaapi.controllers.pri;
 
 import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.models.QuestionResponseCredentials;
+import com.r00t.becaapi.services.QuestionResponseService;
 import com.r00t.becaapi.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class QuestionController {
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private QuestionResponseService questionResponseService;
 
     @GetMapping
     public ResponseEntity<?> getRandomQuestionByRandomType() {
@@ -33,6 +36,6 @@ public class QuestionController {
             @RequestBody QuestionResponseCredentials requestCredentials) throws NotFoundException {
         String userId = (String) authentication.getCredentials();
         return ResponseEntity.ok().body(
-                questionService.insertResponseCredentials(userId, requestCredentials));
+                questionResponseService.insertCredentials(userId, requestCredentials));
     }
 }

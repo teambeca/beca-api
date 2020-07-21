@@ -8,8 +8,8 @@ public class ProfileCredentials {
     private String fullName;
     private String job;
     private String cityId;
-    private int gender; // 0 = male, 1 = female, 2 = not want to say
-    private int age;
+    private int gender; // -1 = empty, 0 = male, 1 = female, 2 = not want to say
+    private int age; // -1 = empty
     private long creationDate;
     private long updatedDate;
 
