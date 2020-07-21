@@ -35,4 +35,6 @@ public interface ProfileCredentialsRepository extends MongoRepository<ProfileCre
     Optional<List<ProfileCredentials>> findAllByCreationDateLessThan(long creationDate);
 
     Optional<List<ProfileCredentials>> findAllByCreationDateBetween(long start, long end);
+
+    void deleteByUserId(String userId);
 }

@@ -13,4 +13,20 @@ public interface UserLoginCredentialsRepository extends MongoRepository<UserLogi
     Optional<UserLoginCredentials> findByUsername(String username);
 
     Optional<List<UserLoginCredentials>> findTop5ByOrderByScoreDesc();
+
+    Optional<List<UserLoginCredentials>> findAllByUsername(String username);
+
+    Optional<List<UserLoginCredentials>> findAllByRole(String role);
+
+    Optional<List<UserLoginCredentials>> findAllByScoreGreaterThan(long score);
+
+    Optional<List<UserLoginCredentials>> findAllByScoreLessThan(long score);
+
+    Optional<List<UserLoginCredentials>> findAllByScoreBetween(long start, long end);
+
+    Optional<List<UserLoginCredentials>> findAllByCreationDateGreaterThan(long creationDate);
+
+    Optional<List<UserLoginCredentials>> findAllByCreationDateLessThan(long creationDate);
+
+    Optional<List<UserLoginCredentials>> findAllByCreationDateBetween(long start, long end);
 }

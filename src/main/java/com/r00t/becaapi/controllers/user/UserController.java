@@ -32,7 +32,7 @@ public class UserController {
             if (!isPasswordValid(requestCredentials.getPassword()))
                 throw new BaseException(422, "invalidParameter", "password", "password field can't be blank");
         return ResponseEntity.ok().body(
-                userService.updateCredentials(requestCredentials));
+                userService.updateCredentialsByRequest(requestCredentials));
     }
 
     private boolean isPasswordValid(String password) {

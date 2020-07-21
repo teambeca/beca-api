@@ -20,13 +20,57 @@ public class UserService {
     @Autowired
     private ProfileService profileService;
 
+    public boolean checkUsernameExist(String username) {
+        return userLoginCredentialsRepository.findByUsername(username).isPresent();
+    }
+
     public List<UserLoginCredentials> getTopCredentials() throws ServiceUnavailableException {
         return userLoginCredentialsRepository.findTop5ByOrderByScoreDesc()
                 .orElseThrow(() -> new ServiceUnavailableException("userService.getTopCredentials"));
     }
 
-    public boolean checkUsernameExist(String username) {
-        return userLoginCredentialsRepository.findByUsername(username).isPresent();
+    public List<UserLoginCredentials> getCredentials() {
+        return userLoginCredentialsRepository.findAll();
+    }
+
+    public List<UserLoginCredentials> getCredentialsByUsername(String username) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByUsername(username)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByUsername"));
+    }
+
+    public List<UserLoginCredentials> getCredentialsByRole(String role) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByRole(role)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByRole"));
+    }
+
+    public List<UserLoginCredentials> getCredentialsByScoreGreaterThan(int score) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByScoreGreaterThan(score)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByScoreGreaterThan"));
+    }
+
+    public List<UserLoginCredentials> getCredentialsByScoreLessThan(int score) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByScoreLessThan(score)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByScoreLessThan"));
+    }
+
+    public List<UserLoginCredentials> getCredentialsByScoreBetween(int start, int end) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByScoreBetween(start, end)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByScoreBetween"));
+    }
+
+    public List<UserLoginCredentials> getCredentialsByCreationDateGreaterThan(long creationDate) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByCreationDateGreaterThan(creationDate)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByCreationDateGreaterThan"));
+    }
+
+    public List<UserLoginCredentials> getCredentialsByCreationDateLessThan(long creationDate) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByCreationDateLessThan(creationDate)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByCreationDateLessThan"));
+    }
+
+    public List<UserLoginCredentials> getCredentialsByCreationDateBetween(long start, long end) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.findAllByCreationDateBetween(start, end)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.getCredentialsByCreationDateBetween"));
     }
 
     public UserLoginCredentials getCredentialsById(String id) throws NotFoundException {
@@ -51,16 +95,25 @@ public class UserService {
         return u;
     }
 
-    public UserLoginCredentials updateCredentials(UserLoginCredentials requestCredentials) throws NotFoundException, AlreadyExistException {
+    public UserLoginCredentials updateCredentialsByRequest(UserLoginCredentials requestCredentials) throws NotFoundException, AlreadyExistException {
         UserLoginCredentials u = getCredentialsById(requestCredentials.getId());
         if (!u.getUsername().equals(requestCredentials.getUsername()))
             if (userLoginCredentialsRepository.findByUsername(requestCredentials.getUsername()).isPresent())
-                throw new AlreadyExistException("");
+                throw new AlreadyExistException("userService.updateCredentialsByRequest");
             else
                 u.setUsername(requestCredentials.getUsername());
         if (requestCredentials.getPassword() != null)
             u.setPassword(requestCredentials.getPassword());
         u.setUpdatedDate(System.currentTimeMillis());
         return userLoginCredentialsRepository.save(u);
+    }
+
+    public UserLoginCredentials updateCredentials(UserLoginCredentials requestCredentials) {
+        requestCredentials.setUpdatedDate(System.currentTimeMillis());
+        return userLoginCredentialsRepository.save(requestCredentials);
+    }
+
+    public void deleteCredentials(String userId) {
+        profileService.deleteCredentialsByUserId(userId);
     }
 }

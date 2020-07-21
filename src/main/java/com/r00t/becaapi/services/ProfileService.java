@@ -128,4 +128,8 @@ public class ProfileService {
         p.setUpdatedDate(System.currentTimeMillis());
         profileCredentialsRepository.save(p);
     }
+
+    public void deleteCredentialsByUserId(String userId) {
+        profileCredentialsRepository.deleteByUserId(userId);
+    }
 }
