@@ -1,5 +1,6 @@
 package com.r00t.becaapi.controllers.admin;
 
+import com.r00t.becaapi.converters.PageConverter;
 import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.UserLoginCredentials;
@@ -15,12 +16,15 @@ import java.util.Map;
 public class AdminUserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PageConverter pageConverter;
 
     @GetMapping("/{page}")
     public ResponseEntity<?> getUserLoginCredentials(
             @PathVariable int page) {
         return ResponseEntity.ok().body(
-                userService.getCredentials(page));
+                pageConverter.convertPageToMap(
+                        userService.getCredentials(page)));
     }
 
     @GetMapping("/by/id/{userId}")

@@ -1,5 +1,6 @@
 package com.r00t.becaapi.controllers.admin;
 
+import com.r00t.becaapi.converters.PageConverter;
 import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.ProfileCredentials;
@@ -15,12 +16,16 @@ import java.util.Map;
 public class AdminProfileController {
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private PageConverter pageConverter;
 
     @GetMapping("/{page}")
     public ResponseEntity<?> getProfileCredentials(
             @PathVariable int page) {
         return ResponseEntity.ok().body(
-                profileService.getCredentials(page));
+                pageConverter.convertPageToMap(
+                        profileService.getCredentials(page))
+        );
     }
 
     @GetMapping("/by/id/{profileId}")

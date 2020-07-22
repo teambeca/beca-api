@@ -1,5 +1,6 @@
 package com.r00t.becaapi.controllers.admin;
 
+import com.r00t.becaapi.converters.PageConverter;
 import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.QuestionResponseCredentials;
@@ -15,12 +16,15 @@ import java.util.Map;
 public class AdminQuestionResponseController {
     @Autowired
     private QuestionResponseService questionResponseService;
+    @Autowired
+    private PageConverter pageConverter;
 
     @GetMapping("/{page}")
     public ResponseEntity<?> getQuestionResponseCredentials(
             @PathVariable int page) {
         return ResponseEntity.ok().body(
-                questionResponseService.getCredentials(page));
+                pageConverter.convertPageToMap(
+                        questionResponseService.getCredentials(page)));
     }
 
     @GetMapping("/by/id/{responseId}")

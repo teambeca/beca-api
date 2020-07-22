@@ -7,6 +7,7 @@ import com.r00t.becaapi.models.QuestionResponseCredentials;
 import com.r00t.becaapi.models.UserLoginCredentials;
 import com.r00t.becaapi.repository.QuestionResponseCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,9 +24,8 @@ public class QuestionResponseService {
     @Autowired
     private QuestionResponseCredentialsRepository questionResponseCredentialsRepository;
 
-    public List<QuestionResponseCredentials> getCredentials(int page) {
-        return questionResponseCredentialsRepository.findAll(PageRequest.of(page, 50))
-                .getContent();
+    public Page<QuestionResponseCredentials> getCredentials(int page) {
+        return questionResponseCredentialsRepository.findAll(PageRequest.of(page, 50));
     }
 
     public QuestionResponseCredentials getCredentialsById(String responseId) throws NotFoundException {
