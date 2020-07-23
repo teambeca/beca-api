@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface QuestionCredentialsRepository extends MongoRepository<QuestionCredentials, String> {
 
-    Optional<Long> countByQuestionType(int questionType);
+    Optional<Long> countAllByType(String type);
 
-    Optional<Long> countByNumberOfReplies(int numberOfReplies);
+    Optional<Long> countAllByNumberOfRepliesBetween(int start, int end);
 }

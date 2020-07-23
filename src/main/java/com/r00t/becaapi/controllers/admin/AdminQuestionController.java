@@ -36,16 +36,17 @@ public class AdminQuestionController {
 
     @GetMapping("/count/by/question-type/{questionType}")
     public ResponseEntity<?> getQuestionCredentialsByQuestionType(
-            @PathVariable int questionType) throws ServiceUnavailableException {
+            @PathVariable String questionType) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
                 questionService.countCredentialsByQuestionType(questionType));
     }
 
-    @GetMapping("/count/by/number-of-replies/{numberOfReplies}")
+    @GetMapping("/count/by/number-of-replies/greater-than/{start}/and/less-than/{end}")
     public ResponseEntity<?> getQuestionCredentialsByNumberOfReplies(
-            @PathVariable int numberOfReplies) throws ServiceUnavailableException {
+            @PathVariable int start,
+            @PathVariable int end) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
-                questionService.countCredentialsByNumberOfReplies(numberOfReplies));
+                questionService.countCredentialsByNumberOfRepliesBetween(start, end));
     }
 
     @PostMapping

@@ -2,12 +2,12 @@ package com.r00t.becaapi.models;
 
 import java.util.List;
 
-public class QuestionResponseCredentials {
+public class AnswerCredentials {
     private String id;
-    private String questionId;
     private String userId;
+    private String questionId;
     private List<Integer> answer;
-    private int questionType;
+    private int type;
     private long creationDate;
 
     public String getId() {
@@ -18,20 +18,20 @@ public class QuestionResponseCredentials {
         this.id = id;
     }
 
-    public String getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
-    }
-
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
     }
 
     public List<Integer> getAnswer() {
@@ -42,12 +42,12 @@ public class QuestionResponseCredentials {
         this.answer = answer;
     }
 
-    public int getQuestionType() {
-        return questionType;
+    public int getType() {
+        return type;
     }
 
-    public void setQuestionType(int questionType) {
-        this.questionType = questionType;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public long getCreationDate() {

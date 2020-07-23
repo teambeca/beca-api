@@ -1,8 +1,9 @@
 package com.r00t.becaapi.controllers.pri;
 
 import com.r00t.becaapi.exceptions.NotFoundException;
-import com.r00t.becaapi.models.QuestionResponseCredentials;
-import com.r00t.becaapi.services.QuestionResponseService;
+import com.r00t.becaapi.exceptions.ServiceUnavailableException;
+import com.r00t.becaapi.models.AnswerCredentials;
+import com.r00t.becaapi.services.AnswerService;
 import com.r00t.becaapi.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,27 +16,27 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
     @Autowired
-    private QuestionResponseService questionResponseService;
+    private AnswerService answerService;
 
     @GetMapping
-    public ResponseEntity<?> getRandomQuestionByRandomType() {
+    public ResponseEntity<?> getRandomQuestionByRandomType() throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
                 questionService.getRandomCredentials());
     }
 
     @GetMapping("/by/type/{questionType}")
     public ResponseEntity<?> getRandomQuestionByType(
-            @PathVariable int questionType) {
+            @PathVariable int questionType) throws ServiceUnavailableException {
         return ResponseEntity.ok().body(
-                questionService.getRandomCredentialsByQuestionType(questionType));
+                questionService.getRandomCredentialsByType(questionType));
     }
 
     @PostMapping
-    public ResponseEntity<?> responseQuestion(
+    public ResponseEntity<?> answerQuestion(
             Authentication authentication,
-            @RequestBody QuestionResponseCredentials requestCredentials) throws NotFoundException {
+            @RequestBody AnswerCredentials requestCredentials) throws NotFoundException {
         String userId = (String) authentication.getCredentials();
         return ResponseEntity.ok().body(
-                questionResponseService.insertCredentials(userId, requestCredentials));
+                answerService.insertCredentials(userId, requestCredentials));
     }
 }
