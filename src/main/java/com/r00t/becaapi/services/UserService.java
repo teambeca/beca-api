@@ -3,7 +3,9 @@ package com.r00t.becaapi.services;
 import com.r00t.becaapi.exceptions.AlreadyExistException;
 import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.exceptions.ServiceUnavailableException;
+import com.r00t.becaapi.models.ProfileCredentials;
 import com.r00t.becaapi.models.UserLoginCredentials;
+import com.r00t.becaapi.models.requests.UserLoginRequestCredentials;
 import com.r00t.becaapi.repository.UserLoginCredentialsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -80,20 +82,25 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("userService.getCredentialsById"));
     }
 
-    public UserLoginCredentials insertCredentials(UserLoginCredentials requestCredentials) throws AlreadyExistException {
+    public UserLoginCredentials insertCredentials(UserLoginRequestCredentials requestCredentials) throws AlreadyExistException, NotFoundException {
         if (checkUsernameExist(requestCredentials.getUsername()))
             throw new AlreadyExistException("userService.insertCredentials");
 
         UserLoginCredentials u = new UserLoginCredentials();
         u.setUsername(requestCredentials.getUsername());
-        u.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
+        if (requestCredentials.getPassword() != null)
+            u.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
         u.setRole("ROLE_USER");
         u.setActive(true);
         u.setScore(0);
         u.setCreationDate(System.currentTimeMillis());
 
         u = userLoginCredentialsRepository.insert(u);
-        profileService.createEmptyCredentialsWithUserId(u.getId());
+        ProfileCredentials p = profileService.createEmptyCredentialsWithUserId(u.getId());
+        if (requestCredentials.getEmail() != null) {
+            p.setEmail(requestCredentials.getEmail());
+            profileService.updateCredentials(p);
+        }
         return u;
     }
 

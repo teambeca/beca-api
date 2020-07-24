@@ -2,8 +2,10 @@ package com.r00t.becaapi.controllers.pub;
 
 import com.r00t.becaapi.configs.SecurityPrincipal;
 import com.r00t.becaapi.exceptions.AlreadyExistException;
+import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.exceptions.PermissionException;
 import com.r00t.becaapi.models.UserLoginCredentials;
+import com.r00t.becaapi.models.requests.UserLoginRequestCredentials;
 import com.r00t.becaapi.services.SecurityService;
 import com.r00t.becaapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,20 +50,20 @@ public class SecurityController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(
-            @RequestBody UserLoginCredentials requestCredentials) throws AlreadyExistException {
+            @RequestBody UserLoginRequestCredentials requestCredentials) throws AlreadyExistException, NotFoundException {
         return ResponseEntity.ok().body(
                 securityService.createToken(
                         userService.insertCredentials(requestCredentials)));
     }
 
     @GetMapping("/sign-up/anonymous")
-    public ResponseEntity<?> signUpAnonymous() throws AlreadyExistException {
+    public ResponseEntity<?> signUpAnonymous() throws AlreadyExistException, NotFoundException {
         String username = "anonymous_";
         do {
             username += random.nextInt(100000 - 10000) + 10000;
         } while (userService.checkUsernameExist(username));
 
-        UserLoginCredentials u = new UserLoginCredentials();
+        UserLoginRequestCredentials u = new UserLoginRequestCredentials();
         u.setUsername(username);
         return ResponseEntity.ok().body(
                 securityService.createToken(
