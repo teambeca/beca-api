@@ -10,6 +10,8 @@ import java.util.Optional;
 @Repository
 public interface UserLoginCredentialsRepository extends MongoRepository<UserLoginCredentials, String> {
 
+    Optional<Integer> countAllByScoreGreaterThan(long score);
+
     Optional<UserLoginCredentials> findByUsername(String username);
 
     Optional<List<UserLoginCredentials>> findTop5ByOrderByScoreDesc();

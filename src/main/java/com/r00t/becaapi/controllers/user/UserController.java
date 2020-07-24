@@ -2,7 +2,9 @@ package com.r00t.becaapi.controllers.user;
 
 import com.r00t.becaapi.exceptions.BaseException;
 import com.r00t.becaapi.exceptions.NotFoundException;
+import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.UserLoginCredentials;
+import com.r00t.becaapi.models.responses.UserLoginResponseCredentials;
 import com.r00t.becaapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,18 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<?> getUserLoginCredentials(Authentication authentication) throws NotFoundException {
+    public ResponseEntity<?> getUserLoginCredentials(Authentication authentication) throws NotFoundException, ServiceUnavailableException {
         String userId = (String) authentication.getCredentials();
-        return ResponseEntity.ok().body(
-                userService.getCredentialsById(userId));
+
+        UserLoginCredentials u = userService.getCredentialsById(userId);
+        UserLoginResponseCredentials responseCredentials = new UserLoginResponseCredentials();
+        responseCredentials.setUsername(u.getUsername());
+        responseCredentials.setRole(u.getRole());
+        responseCredentials.setPlace(userService.countCredentialsByScoreGreaterThan(u.getScore()) + 1);
+        responseCredentials.setScore(u.getScore());
+        responseCredentials.setCreationDate(u.getCreationDate());
+
+        return ResponseEntity.ok().body(responseCredentials);
     }
 
     @PatchMapping

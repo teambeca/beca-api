@@ -28,6 +28,11 @@ public class UserService {
         return userLoginCredentialsRepository.findByUsername(username).isPresent();
     }
 
+    public Integer countCredentialsByScoreGreaterThan(long score) throws ServiceUnavailableException {
+        return userLoginCredentialsRepository.countAllByScoreGreaterThan(score)
+                .orElseThrow(() -> new ServiceUnavailableException("userService.countCredentialsByScoreGreaterThan"));
+    }
+
     public Page<UserLoginCredentials> getCredentials(int page) {
         return userLoginCredentialsRepository.findAll(PageRequest.of(page, 50));
     }
