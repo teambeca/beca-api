@@ -4,11 +4,14 @@ import com.r00t.becaapi.converters.PageConverter;
 import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.exceptions.ServiceUnavailableException;
 import com.r00t.becaapi.models.QuestionCredentials;
+import com.r00t.becaapi.models.requests.Seed;
 import com.r00t.becaapi.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 @RestController
@@ -54,6 +57,24 @@ public class AdminQuestionController {
             @RequestBody QuestionCredentials requestCredentials) {
         return ResponseEntity.ok().body(
                 questionService.insertCredentials(requestCredentials));
+    }
+
+    @PostMapping("/seed")
+    public ResponseEntity<?> seed(
+            @RequestBody Seed seed) {
+        seed.getTexts()
+                .forEach(s -> {
+                    QuestionCredentials q = new QuestionCredentials();
+                    q.setType(seed.getType());
+                    if (seed.getType().equals("sentence"))
+                        q.setText(Arrays.asList(s.split(" ")));
+                    else
+                        q.setText(Collections.singletonList(s));
+                    questionService.insertCredentials(q);
+                });
+
+        return ResponseEntity.ok().body(
+                Map.of("status", "ok"));
     }
 
     @PatchMapping
