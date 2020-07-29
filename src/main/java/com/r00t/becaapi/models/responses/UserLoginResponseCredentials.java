@@ -3,6 +3,7 @@ package com.r00t.becaapi.models.responses;
 public class UserLoginResponseCredentials {
     private String username;
     private String role;
+    private String avatarTag;
     private int place;
     private long score;
     private long creationDate;
@@ -21,6 +22,14 @@ public class UserLoginResponseCredentials {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getAvatarTag() {
+        return avatarTag;
+    }
+
+    public void setAvatarTag(String avatarTag) {
+        this.avatarTag = avatarTag;
     }
 
     public int getPlace() {

@@ -1,10 +1,12 @@
 package com.r00t.becaapi.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class ProfileCredentials {
     private String id;
     private String userId;
+    @NotBlank(message = "")
     private String email;
-    private String imageURL;
     private String fullName;
     private String job;
     private String cityId;
@@ -35,14 +37,6 @@ public class ProfileCredentials {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public String getFullName() {

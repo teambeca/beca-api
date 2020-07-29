@@ -4,6 +4,7 @@ public class UserLoginCredentials {
     private String id;
     private String username;
     private String password;
+    private String avatarTag;
     private String role;
     private boolean active;
     private long score;
@@ -32,6 +33,14 @@ public class UserLoginCredentials {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAvatarTag() {
+        return avatarTag;
+    }
+
+    public void setAvatarTag(String avatarTag) {
+        this.avatarTag = avatarTag;
     }
 
     public String getRole() {

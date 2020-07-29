@@ -108,7 +108,6 @@ public class ProfileService {
                 .orElseThrow(() -> new NotFoundException("profileService.updateCredentials"));
 
         p.setEmail(requestCredentials.getEmail());
-        p.setImageURL(requestCredentials.getImageURL());
         p.setFullName(requestCredentials.getFullName());
         p.setJob(requestCredentials.getJob());
         p.setCityId(requestCredentials.getCityId());
@@ -121,7 +120,6 @@ public class ProfileService {
     public void deleteCredentials(String profileId) throws NotFoundException {
         ProfileCredentials p = getCredentialsById(profileId);
         p.setEmail(null);
-        p.setImageURL(null);
         p.setFullName(null);
         p.setJob(null);
         p.setCityId(null);

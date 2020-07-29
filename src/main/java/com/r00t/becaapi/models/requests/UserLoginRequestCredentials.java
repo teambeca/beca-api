@@ -1,9 +1,15 @@
 package com.r00t.becaapi.models.requests;
 
+import javax.validation.constraints.NotBlank;
+
 public class UserLoginRequestCredentials {
+    @NotBlank(message = "")
     private String username;
     private String password;
+    @NotBlank(message = "")
     private String email;
+    @NotBlank(message = "")
+    private String avatarTag;
 
     public String getUsername() {
         return username;
@@ -27,5 +33,13 @@ public class UserLoginRequestCredentials {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAvatarTag() {
+        return avatarTag;
+    }
+
+    public void setAvatarTag(String avatarTag) {
+        this.avatarTag = avatarTag;
     }
 }

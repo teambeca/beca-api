@@ -1,9 +1,13 @@
 package com.r00t.becaapi.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class FeedbackCredentials {
     private String id;
     private String userId;
+    @NotBlank(message = "")
     private String type;
+    @NotBlank(message = "")
     private String message;
     private long creationDate;
 

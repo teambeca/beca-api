@@ -29,7 +29,7 @@ public class UserService {
     }
 
     public Integer countCredentialsByScoreGreaterThan(long score) throws ServiceUnavailableException {
-        return userLoginCredentialsRepository.countAllByScoreGreaterThan(score)
+        return userLoginCredentialsRepository.countAllByScoreGreaterThanAndActive(score, true)
                 .orElseThrow(() -> new ServiceUnavailableException("userService.countCredentialsByScoreGreaterThan"));
     }
 
@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public List<UserLoginCredentials> getTopCredentials() throws ServiceUnavailableException {
-        return userLoginCredentialsRepository.findTop5ByOrderByScoreDesc()
+        return userLoginCredentialsRepository.findTop5ByActiveOrderByScoreDesc(true)
                 .orElseThrow(() -> new ServiceUnavailableException("userService.getTopCredentials"));
     }
 
@@ -96,6 +96,7 @@ public class UserService {
         if (requestCredentials.getPassword() != null)
             u.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
         u.setRole("ROLE_USER");
+        u.setAvatarTag(requestCredentials.getAvatarTag());
         u.setActive(true);
         u.setScore(0);
         u.setCreationDate(System.currentTimeMillis());
@@ -118,6 +119,7 @@ public class UserService {
                 u.setUsername(requestCredentials.getUsername());
         if (requestCredentials.getPassword() != null)
             u.setPassword(requestCredentials.getPassword());
+        u.setAvatarTag(requestCredentials.getAvatarTag());
         u.setUpdatedDate(System.currentTimeMillis());
         return userLoginCredentialsRepository.save(u);
     }
@@ -127,7 +129,10 @@ public class UserService {
         return userLoginCredentialsRepository.save(requestCredentials);
     }
 
-    public void deleteCredentials(String userId) {
+    public void deleteCredentials(String userId) throws NotFoundException {
+        UserLoginCredentials u = getCredentialsById(userId);
+        u.setActive(false);
+        updateCredentials(u);
         profileService.deleteCredentialsByUserId(userId);
     }
 }

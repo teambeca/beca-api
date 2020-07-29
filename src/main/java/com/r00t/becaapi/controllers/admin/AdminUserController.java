@@ -101,7 +101,7 @@ public class AdminUserController {
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<?> deleteUserLoginCredentials(
-            @PathVariable String userId) {
+            @PathVariable String userId) throws NotFoundException {
         userService.deleteCredentials(userId);
         return ResponseEntity.ok().body(
                 Map.of("status", "ok"));
