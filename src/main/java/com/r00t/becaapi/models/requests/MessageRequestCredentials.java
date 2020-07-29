@@ -2,7 +2,7 @@ package com.r00t.becaapi.models.requests;
 
 import javax.validation.constraints.NotBlank;
 
-public class FeedbackRequestCredentials {
+public class MessageRequestCredentials {
     @NotBlank(message = "")
     private String message;
 

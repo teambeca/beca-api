@@ -6,6 +6,7 @@ public class AnswerCredentials {
     private String id;
     private String userId;
     private String questionId;
+    private List<String> text;
     private List<Integer> answer;
     private int type;
     private long creationDate;
@@ -32,6 +33,14 @@ public class AnswerCredentials {
 
     public void setQuestionId(String questionId) {
         this.questionId = questionId;
+    }
+
+    public List<String> getText() {
+        return text;
+    }
+
+    public void setText(List<String> text) {
+        this.text = text;
     }
 
     public List<Integer> getAnswer() {
