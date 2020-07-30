@@ -48,4 +48,4 @@ heroku git:remote -a <app-name>
 Heroku için gerekli ayarları yaptıkdan sonra ```git push heroku master``` komutunu girmeniz yeterli olucaktır.
 
 ## Lisans
-[Apache License 2.0](LICENSE)
+[MIT](LICENSE)
