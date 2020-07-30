@@ -1,6 +1,6 @@
 # BECA Takımı
 
-BECA ekibi olarak amacımız, NLP projeleri için gerekli veri setlerini hem interaktif bir şekilde kullanıcılardan toplayan, hem de daha sonrasında doğal dil işleme ile bu verileri eşsiz hikayeler yazmak için kullanan, Baazi uygulamasını ülkemize kazandırmaktır.
+BECA ekibi olarak amacımız, NLP projeleri için gerekli veri setlerini hem interaktif bir şekilde kullanıcılardan toplayan, hem de daha sonrasında doğal dil işleme ile bu verileri eşsiz hikayeler yazmak için kullanan Baazi uygulamasını ülkemize kazandırmaktır.
 
 # Baazi
 
