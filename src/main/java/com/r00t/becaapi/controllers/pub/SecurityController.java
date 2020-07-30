@@ -5,6 +5,7 @@ import com.r00t.becaapi.exceptions.AlreadyExistException;
 import com.r00t.becaapi.exceptions.NotFoundException;
 import com.r00t.becaapi.exceptions.PermissionException;
 import com.r00t.becaapi.models.UserLoginCredentials;
+import com.r00t.becaapi.models.requests.AnonymousLoginRequestCredentials;
 import com.r00t.becaapi.models.requests.UserLoginRequestCredentials;
 import com.r00t.becaapi.services.SecurityService;
 import com.r00t.becaapi.services.UserService;
@@ -14,7 +15,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
 
@@ -56,8 +60,9 @@ public class SecurityController {
                         userService.insertCredentials(requestCredentials)));
     }
 
-    @GetMapping("/sign-up/anonymous")
-    public ResponseEntity<?> signUpAnonymous() throws AlreadyExistException, NotFoundException {
+    @PostMapping("/sign-up/anonymous")
+    public ResponseEntity<?> signUpAnonymous(
+            @RequestBody AnonymousLoginRequestCredentials requestCredentials) throws AlreadyExistException, NotFoundException {
         String username = "anonymous_";
         do {
             username += random.nextInt(100000 - 10000) + 10000;
@@ -65,6 +70,7 @@ public class SecurityController {
 
         UserLoginRequestCredentials u = new UserLoginRequestCredentials();
         u.setUsername(username);
+        u.setAvatarTag(requestCredentials.getAvatarTag());
         return ResponseEntity.ok().body(
                 securityService.createToken(
                         userService.insertCredentials(u)));

@@ -118,7 +118,7 @@ public class UserService {
             else
                 u.setUsername(requestCredentials.getUsername());
         if (requestCredentials.getPassword() != null)
-            u.setPassword(requestCredentials.getPassword());
+            u.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
         u.setAvatarTag(requestCredentials.getAvatarTag());
         u.setUpdatedDate(System.currentTimeMillis());
         return userLoginCredentialsRepository.save(u);
