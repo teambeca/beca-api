@@ -10,5 +10,42 @@ BECA takımı ve Baazi uygulaması hakkında daha bilgi almak için, [tıklayın
 
 ## Başlangıç
 
+BECA API, Java programlama dilinde Spring boot ve MongoDB kullanılarak yazılmıştır.
+
+## Gereksinimler
+
+API'ı çalıştırabilmek için Java'nın cihazınıza kurulu olduğundan emin olun.
+
+API'ın database'e bağlanabilmesi için ```BECA_MONGO_URL``` çevre değişkenini (environment variable) sisteminize eklemeniz gerekmektedir.
+
+API'ın geçerli JWT anahtarları üretebilmesi için bir gizli anahtar (secret key) belirlemeniz ve bunu ```BECA_JWT_KEY``` çevre değişkeni (environment variable) olarak sisteminize eklemeniz gerekmektedir.
+
+#### BECA API'ı dokku veya benzeri (heroku) sistemler üzerine çalıştırmanız ve database olarak Atlas MongoDB veya benzeri sistemler kullanmanız önerilir.
+
+## Kurulum
+
+BECA API'ı heroku üzerinde kurulum işlemini gerçekleştirmek gerçekleştirmek çok kolay. İlk yapmanız gereken bir heroku hesabı oluşturmanız ve sisteminize Heroku CLI'ı kurmanız.
+
+Ardından cihazınızdan kullanıcı girişi yapmak için ```heroku login``` komutu vermeniz yeterli olucaktır.
+
+Bunun ardından ```git``` için gerekli komutları girmeniz gerekmektedir.
+
+```
+git init
+git add .
+git commit -m "first commit"
+```
+
+VSC için gerekli komutları verdikden sonra Heroku ayarlarını yapmaya geçebilirsiniz.
+
+```
+heroku create <app-name>
+heroku config:set BECA_MONGO_URL="<AtlasMongoDBURL>"
+heroku config:set BECA_JWT_KEY="<AppJWTSecretKey>"
+heroku git:remote -a <app-name>
+```
+
+Heroku için gerekli ayarları yaptıkdan sonra ```git push heroku master``` komutunu girmeniz yeterli olucaktır.
+
 ## Lisans
 [Apache License 2.0](LICENSE)
