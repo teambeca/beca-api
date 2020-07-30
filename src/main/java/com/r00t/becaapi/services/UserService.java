@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public List<UserLoginCredentials> getTopCredentials() throws ServiceUnavailableException {
-        return userLoginCredentialsRepository.findTop5ByActiveOrderByScoreDesc(true)
+        return userLoginCredentialsRepository.findTop15ByActiveOrderByScoreDesc(true)
                 .orElseThrow(() -> new ServiceUnavailableException("userService.getTopCredentials"));
     }
 
