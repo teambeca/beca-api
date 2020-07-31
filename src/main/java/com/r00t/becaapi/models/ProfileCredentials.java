@@ -10,8 +10,8 @@ public class ProfileCredentials {
     private String fullName;
     private String job;
     private String cityId;
-    private int gender; // -1 = empty, 0 = male, 1 = female, 2 = not want to say
-    private int age; // -1 = empty
+    private Integer gender; // 0 = male, 1 = female, 2 = not want to say
+    private Integer age;
     private long creationDate;
     private long updatedDate;
 
@@ -63,19 +63,19 @@ public class ProfileCredentials {
         this.cityId = cityId;
     }
 
-    public int getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

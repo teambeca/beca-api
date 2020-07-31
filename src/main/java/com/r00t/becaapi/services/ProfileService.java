@@ -97,8 +97,8 @@ public class ProfileService {
 
         ProfileCredentials p = new ProfileCredentials();
         p.setUserId(userId);
-        p.setGender(-1);
-        p.setAge(-1);
+        p.setGender(null);
+        p.setAge(null);
         p.setCreationDate(System.currentTimeMillis());
         return profileCredentialsRepository.insert(p);
     }
@@ -107,12 +107,18 @@ public class ProfileService {
         ProfileCredentials p = profileCredentialsRepository.findByUserId(requestCredentials.getUserId())
                 .orElseThrow(() -> new NotFoundException("profileService.updateCredentials"));
 
-        p.setEmail(requestCredentials.getEmail());
-        p.setFullName(requestCredentials.getFullName());
-        p.setJob(requestCredentials.getJob());
-        p.setCityId(requestCredentials.getCityId());
-        p.setGender(requestCredentials.getGender());
-        p.setAge(requestCredentials.getAge());
+        if (requestCredentials.getEmail() != null)
+            p.setEmail(requestCredentials.getEmail());
+        if (requestCredentials.getFullName() != null)
+            p.setFullName(requestCredentials.getFullName());
+        if (requestCredentials.getJob() != null)
+            p.setJob(requestCredentials.getJob());
+        if (requestCredentials.getCityId() != null)
+            p.setCityId(requestCredentials.getCityId());
+        if (requestCredentials.getGender() != null)
+            p.setGender(requestCredentials.getGender());
+        if (requestCredentials.getAge() != null)
+            p.setAge(requestCredentials.getAge());
         p.setUpdatedDate(System.currentTimeMillis());
         return profileCredentialsRepository.save(p);
     }
@@ -123,8 +129,8 @@ public class ProfileService {
         p.setFullName(null);
         p.setJob(null);
         p.setCityId(null);
-        p.setGender(-1);
-        p.setAge(-1);
+        p.setGender(null);
+        p.setAge(null);
         p.setUpdatedDate(System.currentTimeMillis());
         profileCredentialsRepository.save(p);
     }
