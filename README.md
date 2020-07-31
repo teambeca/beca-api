@@ -47,5 +47,7 @@ heroku git:remote -a <app-name>
 
 Heroku için gerekli ayarları yaptıkdan sonra ```git push heroku master``` komutunu girmeniz yeterli olucaktır.
 
+API'ı kullanabilmek için gerekli tüm endpoint'ler ve açıklamalarına [buradan](https://documenter.getpostman.com/view/2246006/T1DjjzBy) ulaşabilirsiniz.
+
 ## Lisans
 [MIT License](LICENSE)
