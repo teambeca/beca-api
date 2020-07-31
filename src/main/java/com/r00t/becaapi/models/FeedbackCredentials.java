@@ -5,9 +5,9 @@ import javax.validation.constraints.NotBlank;
 public class FeedbackCredentials {
     private String id;
     private String userId;
-    @NotBlank(message = "")
+    @NotBlank(message = "type field can't be blank")
     private String type;
-    @NotBlank(message = "")
+    @NotBlank(message = "message field can't be blank")
     private String message;
     private long creationDate;
 

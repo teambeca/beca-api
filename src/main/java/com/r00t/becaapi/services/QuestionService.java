@@ -64,18 +64,6 @@ public class QuestionService {
             responseCredentials.setText(questionCredentials.getText());
             responseCredentials.setType(type);
             return responseCredentials;
-
-            /*return getRandomCredentialsByTypeAndSize(
-                    (type == 0 || type == 1) ? "sentence" : "word", 1)
-                    .stream()
-                    .map(q -> {
-                        QuestionResponseCredentials r = new QuestionResponseCredentials();
-                        r.setId(q.getId());
-                        r.setText(q.getText());
-                        r.setType(type);
-                        return r;
-                    }).findFirst()
-                    .orElseThrow(() -> new ServiceUnavailableException(""));*/
         } else if (type == 3) {
             QuestionResponseCredentials questionResponseCredentials = new QuestionResponseCredentials();
             questionResponseCredentials.setText(

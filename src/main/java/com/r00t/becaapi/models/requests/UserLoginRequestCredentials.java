@@ -3,12 +3,12 @@ package com.r00t.becaapi.models.requests;
 import javax.validation.constraints.NotBlank;
 
 public class UserLoginRequestCredentials {
-    @NotBlank(message = "")
+    @NotBlank(message = "username field can't be blank")
     private String username;
     private String password;
-    @NotBlank(message = "")
+    @NotBlank(message = "email field can't be blank")
     private String email;
-    @NotBlank(message = "")
+    @NotBlank(message = "avaterTag field can't be blank")
     private String avatarTag;
 
     public String getUsername() {

@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 public class ProfileCredentials {
     private String id;
     private String userId;
-    @NotBlank(message = "")
+    @NotBlank(message = "email field can't be blank")
     private String email;
     private String fullName;
     private String job;
