@@ -76,9 +76,17 @@ public class AnswerService {
                     QuestionCredentials.class) == null)
                 throw new NotFoundException("questionService.insertResponseCredentials.questionCredentials");
 
+        int score = 0;
+        if (requestCredentials.getType() == 0)
+            score = requestCredentials.getAnswer().size() * 3;
+        else if (requestCredentials.getType() == 1 || requestCredentials.getType() == 2)
+            score = 5;
+        else if (requestCredentials.getType() == 3)
+            score = 10;
+
         if (mongoTemplate.findAndModify(
                 new Query(Criteria.where("id").is(userId)),
-                new Update().inc("score", 10),
+                new Update().inc("score", score),
                 UserLoginCredentials.class) == null)
             throw new NotFoundException("questionService.insertResponseCredentials.userLoginCredentials");
 
