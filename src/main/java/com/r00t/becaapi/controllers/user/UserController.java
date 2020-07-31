@@ -20,16 +20,9 @@ public class UserController {
     @GetMapping
     public ResponseEntity<?> getUserLoginCredentials(Authentication authentication) throws NotFoundException, ServiceUnavailableException {
         String userId = (String) authentication.getCredentials();
-
-        UserLoginCredentials u = userService.getCredentialsById(userId);
-        UserLoginResponseCredentials responseCredentials = new UserLoginResponseCredentials();
-        responseCredentials.setUsername(u.getUsername());
-        responseCredentials.setRole(u.getRole());
-        responseCredentials.setPlace(userService.countCredentialsByScoreGreaterThan(u.getScore()) + 1);
-        responseCredentials.setScore(u.getScore());
-        responseCredentials.setCreationDate(u.getCreationDate());
-
-        return ResponseEntity.ok().body(responseCredentials);
+        return ResponseEntity.ok().body(
+                getUserLoginResponseCredentials(
+                        userService.getCredentialsById(userId)));
     }
 
     @PatchMapping
@@ -42,7 +35,19 @@ public class UserController {
             if (!isPasswordValid(requestCredentials.getPassword()))
                 throw new BaseException(422, "invalidParameter", "password", "password field value not valid");
         return ResponseEntity.ok().body(
-                userService.updateCredentialsByRequest(requestCredentials));
+                getUserLoginResponseCredentials(
+                        userService.updateCredentialsByRequest(requestCredentials)));
+    }
+
+    private UserLoginResponseCredentials getUserLoginResponseCredentials(UserLoginCredentials credentials) throws ServiceUnavailableException {
+        UserLoginResponseCredentials responseCredentials = new UserLoginResponseCredentials();
+        responseCredentials.setUsername(credentials.getUsername());
+        responseCredentials.setRole(credentials.getRole());
+        responseCredentials.setAvatarTag(credentials.getAvatarTag());
+        responseCredentials.setPlace(userService.countCredentialsByScoreGreaterThan(credentials.getScore()) + 1);
+        responseCredentials.setScore(credentials.getScore());
+        responseCredentials.setCreationDate(credentials.getCreationDate());
+        return responseCredentials;
     }
 
     private boolean isPasswordValid(String password) {
