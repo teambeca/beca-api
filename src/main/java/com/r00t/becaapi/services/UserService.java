@@ -120,7 +120,8 @@ public class UserService {
                     u.setUsername(requestCredentials.getUsername());
         if (requestCredentials.getPassword() != null)
             u.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
-        u.setAvatarTag(requestCredentials.getAvatarTag());
+        if (requestCredentials.getAvatarTag() != null)
+            u.setAvatarTag(requestCredentials.getAvatarTag());
         u.setUpdatedDate(System.currentTimeMillis());
         return userLoginCredentialsRepository.save(u);
     }
