@@ -42,6 +42,8 @@ VSC için gerekli komutları verdikden sonra Heroku ayarlarını yapmaya geçebi
 heroku create <app-name>
 heroku config:set BECA_MONGO_URL="<AtlasMongoDBURL>"
 heroku config:set BECA_JWT_KEY="<AppJWTSecretKey>"
+heroku config:set BECCA_BOT_URL="<BeccaBotAPIURL>"
+heroku config:set BECCA_BOT_TOKEN="<BeccaBotAuthToken>"
 heroku git:remote -a <app-name>
 ```
 
