@@ -112,11 +112,12 @@ public class UserService {
 
     public UserLoginCredentials updateCredentialsByRequest(UserLoginCredentials requestCredentials) throws NotFoundException, AlreadyExistException {
         UserLoginCredentials u = getCredentialsById(requestCredentials.getId());
-        if (!u.getUsername().equals(requestCredentials.getUsername()))
-            if (userLoginCredentialsRepository.findByUsername(requestCredentials.getUsername()).isPresent())
-                throw new AlreadyExistException("userService.updateCredentialsByRequest");
-            else
-                u.setUsername(requestCredentials.getUsername());
+        if (requestCredentials.getUsername() != null)
+            if (!u.getUsername().equals(requestCredentials.getUsername()))
+                if (userLoginCredentialsRepository.findByUsername(requestCredentials.getUsername()).isPresent())
+                    throw new AlreadyExistException("userService.updateCredentialsByRequest");
+                else
+                    u.setUsername(requestCredentials.getUsername());
         if (requestCredentials.getPassword() != null)
             u.setPassword(passwordEncoder.encode(requestCredentials.getPassword()));
         u.setAvatarTag(requestCredentials.getAvatarTag());
